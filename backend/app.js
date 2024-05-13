@@ -5,7 +5,7 @@ require("dotenv").config({ path: path.join(__dirname, "/config/.env") });
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello WSsrld!");
 });
 
 app.use(bodyParser.json());
