@@ -29,17 +29,7 @@ const JoinController = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
-  try {
-    const user = await userService.getUserByIdService(req.params.id);
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(404).json({ error: err.message });
-  }
-};
-
 module.exports = {
   loginController,
-  getUserById,
   JoinController,
 };
