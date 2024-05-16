@@ -1,8 +1,8 @@
 const { User } = require("../models");
 
-const joinUserService = async (email, password) => {
+const joinUserService = async (email, password, nickname) => {
   try {
-    return await User.createUser({ email, password });
+    await User.Join({ email, password, nickname });
   } catch (error) {
     throw new Error(error.message);
   }
@@ -10,8 +10,7 @@ const joinUserService = async (email, password) => {
 
 const getUserByIdService = async (id) => {
   try {
-    const user = await User.getUserById(id);
-    return user;
+    await User.getUserById(id);
   } catch (err) {
     throw new Error(err.message);
   }

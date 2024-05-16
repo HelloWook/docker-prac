@@ -18,6 +18,16 @@ const loginController = async (req, res) => {
   }
 };
 
+const JoinController = async (req, res) => {
+  try {
+    const { email, password, nickname } = req.body;
+    await userService.joinUserService(email, password, nickname);
+    res.status(200).json({ message: "회원가입에 성공했습니다." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getUserById = async (req, res) => {
   try {
     const user = await userService.getUserByIdService(req.params.id);
@@ -30,4 +40,5 @@ const getUserById = async (req, res) => {
 module.exports = {
   loginController,
   getUserById,
+  JoinController,
 };

@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
       },
     },
     {
@@ -31,6 +32,17 @@ module.exports = (sequelize, DataTypes) => {
       const user = await User.findByPk(id);
       return user;
     } catch (err) {
+      throw new Error(err.message);
+    }
+  };
+
+  User.Join = async function ({ email, password, nickname }) {
+    try {
+      await User.create({ email, password, nickname });
+    } catch (err) {
+      if (err.name === "SequelizeUniqueConstraintError") {
+        throw new Error("중복된 아이디입니다.");
+      }
       throw new Error(err.message);
     }
   };

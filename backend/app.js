@@ -4,14 +4,13 @@ const { sequelize } = require("./models");
 require("dotenv").config();
 const app = express();
 const userRoutes = require("./routes/userRoute");
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello Wssorld!");
 });
 
 app.use("/user", userRoutes);
-
-app.use(bodyParser.json());
 
 sequelize
   .sync()
