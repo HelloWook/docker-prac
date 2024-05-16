@@ -1,3 +1,5 @@
+const e = require("cors");
+
 // models/user.js
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -26,25 +28,38 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
-  // 테스트
-  User.getUserById = async function (id) {
+
+  User.login = async function ({ email, password }) {
     try {
-      const user = await User.findByPk(id);
-      return user;
+      result = await User.findOne({
+        where: {
+          email,
+          password,
+        },
+      });
+      if (!result) {
+        const error = Error("아이디와 패스워드를 다시 확인해주세요");
+        error.status = 400;
+        throw error;
+      }
+      return result;
     } catch (err) {
       throw new Error(err.message);
     }
   };
 
-  User.Join = async function ({ email, password, nickname }) {
+  User.join = async function ({ email, password, nickname }) {
     try {
       await User.create({ email, password, nickname });
     } catch (err) {
       if (err.name === "SequelizeUniqueConstraintError") {
-        throw new Error("중복된 아이디입니다.");
+        const error = Error("중복된 아이디입니다.");
+        error.status = 400;
+        throw error;
       }
       throw new Error(err.message);
     }
   };
+
   return User;
 };

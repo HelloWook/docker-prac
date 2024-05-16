@@ -2,18 +2,19 @@ const { User } = require("../models");
 
 const joinUserService = async (email, password, nickname) => {
   try {
-    await User.Join({ email, password, nickname });
+    await User.join({ email, password, nickname });
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-const getUserByIdService = async (id) => {
+const loginUserService = async (email, password) => {
   try {
-    await User.getUserById(id);
+    const result = await User.login({ email, password });
+    return result;
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
-module.exports = { joinUserService, getUserByIdService };
+module.exports = { joinUserService, loginUserService };

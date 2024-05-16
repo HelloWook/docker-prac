@@ -1,11 +1,12 @@
 const userService = require("../services/userService");
+const jwtToken = require("../util/jwtToken");
 
 const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     const result = await userService.loginUserService(email, password);
-    const { nickname, joindate } = result;
-    const token = jwtToken.generateToken({ email, nickname, joindate });
+    const { nickname, createdAt } = result;
+    const token = jwtToken.generateToken({ email, nickname, createdAt });
     res.status(200).json({
       code: 200,
       email: email,
@@ -14,7 +15,7 @@ const loginController = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(error.status || 500).json({ message: error.message });
   }
 };
 
@@ -24,7 +25,7 @@ const JoinController = async (req, res) => {
     await userService.joinUserService(email, password, nickname);
     res.status(200).json({ message: "회원가입에 성공했습니다." });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(error.status || 500).json({ message: error.message });
   }
 };
 
