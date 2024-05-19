@@ -60,6 +60,11 @@ module.exports = (sequelize, DataTypes) => {
       throw new Error(err.message);
     }
   };
-
+  User.associate = (models) => {
+    User.hasMany(models.Music, {
+      foreignKey: "uploader",
+      sourceKey: "email",
+    });
+  };
   return User;
 };

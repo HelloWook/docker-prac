@@ -18,5 +18,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.User = require("./user")(sequelize, Sequelize.DataTypes);
+db.Music = require("./music")(sequelize, Sequelize.DataTypes);
 
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 module.exports = db;

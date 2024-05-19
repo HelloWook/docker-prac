@@ -4,6 +4,8 @@ const { sequelize } = require("./models");
 require("dotenv").config();
 const app = express();
 const userRoutes = require("./routes/userRoute");
+const musicRoutes = require("./routes/musicRoute");
+
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
@@ -11,9 +13,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/music", musicRoutes);
 
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     console.log("데이터베이스 연결");
   })
