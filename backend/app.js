@@ -5,7 +5,6 @@ require("dotenv").config();
 const app = express();
 const userRoutes = require("./routes/userRoute");
 const musicRoutes = require("./routes/musicRoute");
-
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {

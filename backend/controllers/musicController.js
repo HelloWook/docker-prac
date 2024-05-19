@@ -1,6 +1,7 @@
 const musicService = require("../services/musicService");
 const { s3 } = require("../config/s3config");
 const fs = require("fs");
+const { downloadFileFromUrl } = require("../middleware/downloadMiddleware");
 
 const uploadController = async (req, res) => {
   if (!req.files || !req.files.file || !req.files.image) {
@@ -47,6 +48,36 @@ const uploadController = async (req, res) => {
   }
 };
 
+const getAllMusic = async (req, res) => {
+  try {
+    const musicList = await musicService.getAllMusicService();
+    res.status(200).json(musicList);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getMusicByUploader = async (req, res) => {
+  const { uploader } = req.params;
+  try {
+    const musicList = await musicService.getMusicByUploaderService(uploader);
+    res.status(200).json(musicList);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const downloadMusic = async (req, res) => {
+  const fileUrl = req.query.url;
+  if (!fileUrl) {
+    return res.status(400).json({ message: "URL is required" });
+  }
+  await downloadFileFromUrl(fileUrl, res);
+};
+
 module.exports = {
   uploadController,
+  getAllMusic,
+  getMusicByUploader,
+  downloadMusic,
 };

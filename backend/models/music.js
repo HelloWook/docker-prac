@@ -56,6 +56,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+  Music.getAll = async function () {
+    try {
+      return await Music.findAll();
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  };
+
+  Music.getByUploader = async function (uploader) {
+    try {
+      return await Music.findAll({ where: { uploader } });
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  };
+
   Music.associate = (models) => {
     Music.belongsTo(models.User, {
       foreignKey: "uploader",
