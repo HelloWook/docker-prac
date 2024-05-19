@@ -16,7 +16,7 @@ app.use("/user", userRoutes);
 app.use("/music", musicRoutes);
 
 sequelize
-  .sync({ force: true })
+  .sync({ alter: true })
   .then(() => {
     console.log("데이터베이스 연결");
   })
