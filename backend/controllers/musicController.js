@@ -32,7 +32,7 @@ const uploadController = async (req, res) => {
     ]);
 
     const { title, genre, uploader } = req.body;
-    const result = await musicService.uploadMusicService(
+    await musicService.uploadMusicService(
       title,
       mp3Upload.Location,
       imageUpload.Location,
@@ -40,7 +40,7 @@ const uploadController = async (req, res) => {
       uploader
     );
     res.status(200).json({
-      result,
+      message: "업로드에 성공했습니다.",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
