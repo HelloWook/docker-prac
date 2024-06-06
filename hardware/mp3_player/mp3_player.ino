@@ -8,13 +8,7 @@ bool isPaused = false; // 재생 상태를 추적하는 변수
 void setup() {
   Serial.begin(9600);
   mySerial.begin(9600);
-
-  if (!myDFPlayer.begin(mySerial)) {
-    Serial.println("DFPlayer Mini 연결 실패!");
-    while (true);
-  }
-
-  Serial.println("DFPlayer Mini 연결 성공!");
+  
   myDFPlayer.volume(30);
   myDFPlayer.play(1);
 }
@@ -22,7 +16,6 @@ void setup() {
 void loop() {
   if (Serial.available() > 0) {
     char command = Serial.read();
-
     switch (command) {
       case 'p': // 재생/일시정지 토글
         if (isPaused) {
@@ -53,6 +46,6 @@ void loop() {
     {
       currentFileNumber =1;
     }
-    Serial.println("현재 재생 중인 파일 번호: " + String(currentFileNumber));
+    Serial.println( String(currentFileNumber));
   }
 }
