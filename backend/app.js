@@ -5,6 +5,7 @@ require("dotenv").config();
 const app = express();
 const userRoutes = require("./routes/userRoute");
 const musicRoutes = require("./routes/musicRoute");
+const arduinoRoutes = require("./routes/arduinoRoute");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
@@ -13,9 +14,10 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoutes);
 app.use("/music", musicRoutes);
+app.use("/arduino", arduinoRoutes);
 
 sequelize
-  .sync({ alter: true })
+  .authenticate()
   .then(() => {
     console.log("데이터베이스 연결");
   })
