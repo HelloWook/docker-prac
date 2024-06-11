@@ -3,7 +3,7 @@ const { ReadlineParser } = require("@serialport/parser-readline");
 let lastSerialMessage = "";
 
 const com = new SerialPort({
-  path: "COM6",
+  path: "COM8",
   baudRate: 9600,
   dataBits: 8,
   stopBits: 1,

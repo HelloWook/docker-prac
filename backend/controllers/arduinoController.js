@@ -1,4 +1,3 @@
-const { lastSerialMessage } = require("../config/arduinoConfig");
 const ardunioService = require("../services/arudinoService");
 
 const controllMusicController = async (req, res) => {
@@ -18,7 +17,7 @@ const controllMusicController = async (req, res) => {
         responseMessage = "이전 곡을 재생합니다.";
         break;
       case "s":
-        responseMessage = "재생을 중지합니다.";
+        responseMessage = "재생을 중지합니다."; 
         break;
       default:
         responseMessage = "잘못된 명령입니다.";
