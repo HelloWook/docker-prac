@@ -12,9 +12,9 @@ exports.downloadFileFromUrl = async (url, res) => {
     res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
     response.data.pipe(res);
   } catch (err) {
-    console.error("Error downloading file", err);
+    console.error("다운에 실패했습니다.", err);
     res
       .status(500)
-      .json({ message: "Error downloading file", error: err.message });
+      .json({ message: "다운에 실패했습니다.", error: err.message });
   }
 };
